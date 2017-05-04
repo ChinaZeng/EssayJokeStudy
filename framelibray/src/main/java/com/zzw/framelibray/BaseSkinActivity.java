@@ -7,24 +7,7 @@ import com.zzw.baselibray.base.BaseActivity;
  * 换肤层
  */
 
-public class BaseSkinActivity extends BaseActivity {
-    @Override
-    protected int initLayoutId() {
-        return 0;
-    }
+public abstract class BaseSkinActivity extends BaseActivity {
 
-    @Override
-    protected void initData() {
 
-    }
-
-    @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void initTitle() {
-
-    }
 }
