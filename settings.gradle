@@ -1,1 +1,1 @@
-include ':app', ':baselibray'
+include ':app', ':baselibray', ':framelibray'

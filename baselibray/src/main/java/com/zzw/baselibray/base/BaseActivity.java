@@ -13,6 +13,8 @@ import android.view.View;
  *
  * 注意:只能放每个Activity都要用的通用方法.
  *     如果是两个或者两个以上的地方要使用,最好是写一个工具类.
+ *
+ *     业务层不要直接集成BaseActivity  永远留一层   framelibray--->BaseSkinActivity
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
