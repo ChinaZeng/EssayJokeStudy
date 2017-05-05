@@ -1,19 +1,77 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
         applicationId "com.zzw.essayjokestudy"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
-    buildTypes {
+
+    signingConfigs {
+        myConfig {
+            storeFile file("EssayJokeStudy.jks")
+            storePassword '123456'
+            keyAlias '内涵段子学习'
+            keyPassword '123456'
+        }
+
         release {
+            try {
+                storeFile file("EssayJokeStudy.jks")
+                storePassword '123456'
+                keyAlias '内涵段子学习'
+                keyPassword '123456'
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+        debug {
+            storeFile file("EssayJokeStudy.jks")
+            storePassword '123456'
+            keyAlias '内涵段子学习'
+            keyPassword '123456'
+        }
+    }
+
+    dexOptions {
+        preDexLibraries = true
+        javaMaxHeapSize "4g"
+    }
+
+    buildTypes {
+
+        myConfig {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            buildConfigField "String", "BASE_URL", "www.xxxx.com"
+            minifyEnabled true
+            signingConfig signingConfigs.myConfig
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -22,6 +80,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':framelibray')
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile rootProject.ext.dependencies["rxjava"]
     compile 'com.alipay.euler:andfix:0.5.0@aar'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

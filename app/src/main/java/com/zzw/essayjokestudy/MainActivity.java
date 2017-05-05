@@ -3,15 +3,19 @@ package com.zzw.essayjokestudy;
 
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.zzw.baselibray.ExceptionCrashHandler;
+import com.zzw.baselibray.fixBug.FixBugManager;
 import com.zzw.framelibray.BaseSkinActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import rx.Observable;
 
 public class MainActivity extends BaseSkinActivity {
 
@@ -23,9 +27,27 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
-
+        fixDexBug();
     }
 
+    private void fixDexBug() {
+        File fixFile = new File(Environment.getExternalStorageDirectory(), "fix.dex");
+        if (fixFile.exists()) {
+            FixBugManager manager = new FixBugManager(this);
+            try {
+                manager.fixDex(fixFile.getAbsolutePath());
+                Toast.makeText(this, "修复成功!", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "修复失败!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    public void test(View view) {
+        Toast.makeText(this, 2 / 1, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void initTitle() {
@@ -33,34 +55,30 @@ public class MainActivity extends BaseSkinActivity {
     }
 
 
+
     @Override
     protected void initData() {
-//        File crashFile = ExceptionCrashHandler.getInstance().getCrashFile();
-//        if (crashFile.exists()) {
-//            //上传到服务器...
-//            try {
-//                InputStreamReader reader = new InputStreamReader(new FileInputStream(crashFile));
-//                char[] buffer = new char[1024];
-//                int len = 0;
-//                while ((len = reader.read(buffer)) != -1) {
-//                    String str = new String(buffer, 0, len);
-//                    Log.e("TAG", str);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
 
+    }
 
-        //修复Bug
-        File fixFile = new File(Environment.getExternalStorageDirectory(), "fix.apatch");
-        if (fixFile.exists()) {
+    /**
+     * 上传错误信息
+     */
+    private void uploadException() {
+        File crashFile = ExceptionCrashHandler.getInstance().getCrashFile();
+        if (crashFile.exists()) {
+            //上传到服务器...
             try {
-                MyApplication.mPatchManager.addPatch(fixFile.getAbsolutePath());
-                Toast.makeText(this, "修复成功", Toast.LENGTH_SHORT).show();
+                //打印错误信息
+                InputStreamReader reader = new InputStreamReader(new FileInputStream(crashFile));
+                char[] buffer = new char[1024];
+                int len = 0;
+                while ((len = reader.read(buffer)) != -1) {
+                    String str = new String(buffer, 0, len);
+                    Log.e("TAG", str);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "修复失败", Toast.LENGTH_SHORT).show();
             }
         }
     }
