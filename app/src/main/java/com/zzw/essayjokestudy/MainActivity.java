@@ -1,19 +1,24 @@
 package com.zzw.essayjokestudy;
 
 
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.zzw.baselibray.ExceptionCrashHandler;
 import com.zzw.baselibray.fixBug.FixBugManager;
 import com.zzw.framelibray.BaseSkinActivity;
+import com.zzw.framelibray.skin.SkinManager;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 
 import rx.Observable;
 
@@ -27,7 +32,7 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
-        fixDexBug();
+//        fixDexBug();
     }
 
     private void fixDexBug() {
@@ -45,15 +50,22 @@ public class MainActivity extends BaseSkinActivity {
     }
 
 
-    public void test(View view) {
-        Toast.makeText(this, 2 / 1, Toast.LENGTH_SHORT).show();
+    public void huanfu(View view) {
+//        Toast.makeText(this, 2 / 1, Toast.LENGTH_SHORT).show();
+
+        String skinPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "red.skin";
+
+        SkinManager.getInstance().loadSkin(skinPath);
+
+//        SkinManager.getInstance().restoreDefault();//恢复默认
+
+
     }
 
     @Override
     protected void initTitle() {
 
     }
-
 
 
     @Override
