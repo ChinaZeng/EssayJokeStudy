@@ -1,13 +1,19 @@
 package com.zzw.essayjokestudy;
 
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Environment;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.zzw.baselibray.ExceptionCrashHandler;
 import com.zzw.baselibray.fixBug.FixBugManager;
+import com.zzw.baselibray.ioc.OnClick;
 import com.zzw.framelibray.BaseSkinActivity;
 
 import java.io.File;
@@ -15,9 +21,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import rx.Observable;
 
 public class MainActivity extends BaseSkinActivity {
+
+    private UserAidl mUserAidl;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mUserAidl = UserAidl.Stub.asInterface(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected int initLayoutId() {
@@ -27,9 +46,12 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
-        fixDexBug();
+
     }
 
+    /**
+     * 热修复测试
+     */
     private void fixDexBug() {
         File fixFile = new File(Environment.getExternalStorageDirectory(), "fix.dex");
         if (fixFile.exists()) {
@@ -45,20 +67,69 @@ public class MainActivity extends BaseSkinActivity {
     }
 
 
-    public void test(View view) {
-        Toast.makeText(this, 2 / 1, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     protected void initTitle() {
 
     }
 
 
+    @OnClick({R.id.bind, R.id.unBind, R.id.getUserName, R.id.getPassWord})
+    private void onClick(View view) {
+        try {
+            switch (view.getId()) {
+                case R.id.bind:
+                    startActivity(TestSkinActivity.class);
+//                    bindService();
+                    break;
+                case R.id.getUserName:
+                    Toast.makeText(this, mUserAidl == null ? "请先绑定" : mUserAidl.getUserName(), Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.getPassWord:
+                    Toast.makeText(this, mUserAidl == null ? "请先绑定" : mUserAidl.getPassWord(), Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.unBind:
+                    unbindService();
+                    break;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Override
     protected void initData() {
 
+    }
+
+    /**
+     * 绑定Service
+     */
+    private void bindService() {
+        Intent intent = new Intent();
+        intent.setAction("com.study.aidl.user");
+        // 在Android 5.0之后google出于安全的角度禁止了隐式声明Intent来启动Service.也禁止使用Intent filter.否则就会抛个异常出来
+        intent.setPackage("com.zzw.essayjokestudy");
+        bindService(intent, mConnection, BIND_AUTO_CREATE);
+    }
+
+
+    /**
+     * 解绑Service
+     */
+    private void unbindService() {
+        if (mUserAidl != null) {
+            unbindService(mConnection);
+            mUserAidl = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService();
     }
 
     /**

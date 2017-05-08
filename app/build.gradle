@@ -8,12 +8,18 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
-        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+//        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
 
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
         }
     }
 
@@ -80,7 +86,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':framelibray')
-    compile rootProject.ext.dependencies["rxjava"]
-    compile 'com.alipay.euler:andfix:0.5.0@aar'
+//    compile rootProject.ext.dependencies["rxjava"]
+//    compile 'com.alipay.euler:andfix:0.5.0@aar'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

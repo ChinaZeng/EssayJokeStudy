@@ -27,6 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".TestService"
+            android:process=".test">
+            <intent-filter>
+                <action android:name="com.study.aidl.user" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".TestSkinActivity"></activity>
     </application>
 
 </manifest>
