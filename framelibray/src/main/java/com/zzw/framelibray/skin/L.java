@@ -1,7 +1,5 @@
-package com.zzw.baselibray.util;
+package com.zzw.framelibray.skin;
 
-import android.graphics.Bitmap;
-import android.util.Config;
 import android.util.Log;
 
 /**

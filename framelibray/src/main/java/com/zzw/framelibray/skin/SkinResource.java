@@ -7,8 +7,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-import com.zzw.baselibray.util.L;
-
 import java.lang.reflect.Method;
 
 /**
@@ -26,6 +24,16 @@ public class SkinResource {
      * @param skinPath 皮肤路径
      */
     public SkinResource(Context context, String skinPath) {
+        this(context, skinPath, context.getPackageManager().getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES).applicationInfo.packageName);
+    }
+
+
+    /**
+     * @param context
+     * @param skinPath        要改变的皮肤包路径
+     * @param skinPackageName 要改变的皮肤包包名
+     */
+    public SkinResource(Context context, String skinPath, String skinPackageName) {
         try {
             //创建一个AssetManager
             //AssetManager assetManager = new AssetManager(); hide的调用不了  只有用反射调用
@@ -40,9 +48,7 @@ public class SkinResource {
             mSkinResources = new Resources(assetManager, superResources.getDisplayMetrics(), superResources.getConfiguration());
 
             //获取skinPath包名
-            mPackageName = context.getPackageManager().getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES).applicationInfo.packageName;
-            L.e(mPackageName);
-
+            this.mPackageName = skinPackageName;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -94,6 +94,6 @@ public enum SkinType {
     }
 
     public SkinResource getSkinResource() {
-        return SkinManager.getInstance().getmSkinResource();
+        return SkinManager.getInstance().getSkinResource();
     }
 }

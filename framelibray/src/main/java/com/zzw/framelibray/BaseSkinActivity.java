@@ -9,16 +9,17 @@ import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewParent;
 
 import com.zzw.baselibray.base.BaseActivity;
-import com.zzw.baselibray.util.L;
+import com.zzw.framelibray.skin.L;
 import com.zzw.framelibray.skin.SkinManager;
+import com.zzw.framelibray.skin.SkinResource;
 import com.zzw.framelibray.skin.attr.SkinAttr;
 import com.zzw.framelibray.skin.attr.SkinView;
+import com.zzw.framelibray.skin.callback.ISkinChangeListener;
 import com.zzw.framelibray.skin.support.SkinAppCompatViewInflater;
 import com.zzw.framelibray.skin.support.SkinAttrSupport;
 
@@ -31,7 +32,7 @@ import java.util.List;
  * 换肤层
  */
 
-public abstract class BaseSkinActivity extends BaseActivity implements LayoutInflaterFactory {
+public abstract class BaseSkinActivity extends BaseActivity implements LayoutInflaterFactory, ISkinChangeListener {
     private static final String TAG = "BaseSkinActivity";
 
     private SkinAppCompatViewInflater mSkinAppCompatViewInflater;
@@ -49,19 +50,29 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
     @Override
     public final View onCreateView(View parent, String name,
                                    Context context, AttributeSet attrs) {
-        //1.创建View
-        View view = createView(parent, name, context, attrs);
-        L.e(TAG, "parent:" + parent + " -->" + "name:" + name + "  -->View:" + view);
 
-        //2.解析属性 src textColor background  自定义属性
-        if (view != null) {
-            //2.1 一个Activity对应多个SkinView
-            List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(context, attrs);
-            SkinView skinView = new SkinView(view, skinAttrList);
-            //3.统一交给SkinManager管理
-            managerSkinView(skinView);
+        try {
+            //1.创建View
+            View view = createView(parent, name, context, attrs);
+            L.e(TAG, "parent:" + parent + " -->" + "name:" + name + "  -->View:" + view);
+
+            //2.解析属性 src textColor background  自定义属性
+            if (view != null) {
+                //2.1 一个Activity对应多个SkinView
+                List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(context, attrs);
+                SkinView skinView = new SkinView(view, skinAttrList);
+                //3.统一交给SkinManager管理
+                managerSkinView(skinView);
+
+                //4.判断要不要换肤
+                SkinManager.getInstance().checkChangeSkin(skinView);
+            }
+            return view;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return view;
+
     }
 
 
@@ -80,6 +91,11 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
         skinViews.add(skinView);
     }
 
+    //换肤回调
+    @Override
+    public void changeSkin(SkinResource skinResource) {
+
+    }
 
     /**
      * 创建View

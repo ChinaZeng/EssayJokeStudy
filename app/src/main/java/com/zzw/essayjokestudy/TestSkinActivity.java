@@ -1,22 +1,14 @@
 package com.zzw.essayjokestudy;
 
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.zzw.baselibray.util.L;
 import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.skin.SkinManager;
+import com.zzw.framelibray.skin.SkinResource;
 
 import java.io.File;
-import java.lang.reflect.Method;
 
 public class TestSkinActivity extends BaseSkinActivity {
 
@@ -42,8 +34,20 @@ public class TestSkinActivity extends BaseSkinActivity {
     }
 
     public void huanfu(View view) {
+        //最好来个不要申请权限的路径
         String skinPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "a.skin";
-        L.e(skinPath);
         SkinManager.getInstance().loadSkin(skinPath);
+    }
+
+    public void huifu(View view) {
+        SkinManager.getInstance().restoreDefault();
+    }
+
+
+    //换肤回调
+    @Override
+    public void changeSkin(SkinResource skinResource) {
+        super.changeSkin(skinResource);
+        Toast.makeText(this, "换肤回调", Toast.LENGTH_SHORT).show();
     }
 }
