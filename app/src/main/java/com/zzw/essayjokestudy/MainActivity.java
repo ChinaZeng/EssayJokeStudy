@@ -1,16 +1,12 @@
 package com.zzw.essayjokestudy;
 
 
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 
 
 public class MainActivity extends BaseSkinActivity {
