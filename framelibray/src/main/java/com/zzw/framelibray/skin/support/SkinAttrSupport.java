@@ -33,16 +33,16 @@ public class SkinAttrSupport {
 
         int attrLength = attrs.getAttributeCount();
         for (int i = 0; i < attrLength; i++) {
-            //获取名称和值
+            //获取名称和值  background textColor等
             String attrName = attrs.getAttributeName(i);
-            String attrValue = attrs.getAttributeValue(i);
+//            String attrValue =attrs.getAttributeValue(i) ;
 //            Log.e(TAG, "attrName-->" + attrName + "   attrValue-->" + attrValue);
 
             //只获取重要的自己需要的属性
             SkinType skinType = getSkinType(attrName);
             if (skinType != null) {
                 //传资源名称(目前只有attrValue是一个@int类型)和skinType
-                String resName = getResName(context, attrValue);
+                String resName = getResName(context, attrs.getAttributeValue(i));
                 if (TextUtils.isEmpty(resName)) {
                     continue;
                 }
@@ -58,8 +58,8 @@ public class SkinAttrSupport {
      * 获取资源名称  img_src
      *
      * @param context
-     * @param attrValue
-     * @return
+     * @param attrValue attrValue是一个地址 @1212121这样的  后面是资源id
+     * @return 资源名称  比如:R.mipmap.img_src  --> 得到的是img_src
      */
     private static String getResName(Context context, String attrValue) {
         if (attrValue.startsWith("@")) {

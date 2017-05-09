@@ -7,24 +7,48 @@
     android:orientation="vertical"
     tools:context="com.zzw.essayjokestudy.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="huanfu"
-            android:text="Hello World!"
-           />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="huanfu"-->
+            <!--android:text="Hello World!"-->
+           <!--/>-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/a" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
+
+    <Button
+        android:id="@+id/bind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bindService" />
+
+    <Button
+        android:id="@+id/getUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="getUserName" />
+
+    <Button
+        android:id="@+id/getPassWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="getPassWord" />
+
+    <Button
+        android:id="@+id/unBind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="unBind" />
 
 </LinearLayout>

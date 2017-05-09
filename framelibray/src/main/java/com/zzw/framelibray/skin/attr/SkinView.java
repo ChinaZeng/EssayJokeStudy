@@ -2,6 +2,8 @@ package com.zzw.framelibray.skin.attr;
 
 import android.view.View;
 
+import com.zzw.baselibray.util.L;
+
 import java.util.List;
 
 /**
@@ -14,6 +16,7 @@ public class SkinView {
 
 
     public SkinView() {
+
     }
 
     public SkinView(View view, List<SkinAttr> attrList) {
@@ -23,6 +26,7 @@ public class SkinView {
 
     public void skin() {
         for (SkinAttr skinAttr : mSkinAttrList) {
+            L.e(skinAttr.toString());
             skinAttr.skin(mView);
         }
     }

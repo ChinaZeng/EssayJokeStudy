@@ -21,4 +21,11 @@ public class SkinAttr {
         mSkinType.skin(mView, mResName);
     }
 
+    @Override
+    public String toString() {
+        return "SkinAttr{" +
+                "mResName='" + mResName + '\'' +
+                ", mSkinType=" + mSkinType.getResName() +
+                '}';
+    }
 }

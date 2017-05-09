@@ -15,11 +15,14 @@ import android.view.View;
 import android.view.ViewParent;
 
 import com.zzw.baselibray.base.BaseActivity;
+import com.zzw.baselibray.util.L;
+import com.zzw.framelibray.skin.SkinManager;
 import com.zzw.framelibray.skin.attr.SkinAttr;
 import com.zzw.framelibray.skin.attr.SkinView;
 import com.zzw.framelibray.skin.support.SkinAppCompatViewInflater;
 import com.zzw.framelibray.skin.support.SkinAttrSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,29 +51,33 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
                                    Context context, AttributeSet attrs) {
         //1.创建View
         View view = createView(parent, name, context, attrs);
-        Log.e(TAG, view + "");
+        L.e(TAG, "parent:" + parent + " -->" + "name:" + name + "  -->View:" + view);
 
         //2.解析属性 src textColor background  自定义属性
         if (view != null) {
             //2.1 一个Activity对应多个SkinView
             List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(context, attrs);
             SkinView skinView = new SkinView(view, skinAttrList);
-
             //3.统一交给SkinManager管理
             managerSkinView(skinView);
-
         }
         return view;
     }
 
 
     /**
-     * 同意管理SkinView
+     * 统一管理SkinView
      *
      * @param skinView
      */
     private void managerSkinView(SkinView skinView) {
+        List<SkinView> skinViews = SkinManager.getInstance().getSKinViews(this);
+        if (skinViews == null) {
+            skinViews = new ArrayList<>();
+            SkinManager.getInstance().register(this, skinViews);
+        }
 
+        skinViews.add(skinView);
     }
 
 
@@ -88,7 +95,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
         final boolean isPre21 = Build.VERSION.SDK_INT < 21;
 
         if (mSkinAppCompatViewInflater == null) {
-            mSkinAppCompatViewInflater = new SkinAppCompatViewInflater();//兼容V21
+            mSkinAppCompatViewInflater = new SkinAppCompatViewInflater();
         }
 
         // We only want the View to inherit its context if we're running pre-v21
@@ -99,7 +106,6 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
                 true /* Read read app:theme as a fallback at all times for legacy reasons */
         );
     }
-
 
     private boolean shouldInheritContext(ViewParent parent) {
         if (parent == null) {

@@ -3,6 +3,7 @@ package com.zzw.essayjokestudy;
 
 import com.zzw.baselibray.base.BaseApplication;
 import com.zzw.baselibray.fixBug.FixBugManager;
+import com.zzw.framelibray.skin.SkinManager;
 
 
 /**
@@ -23,5 +24,9 @@ public class MyApplication extends BaseApplication {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        SkinManager.getInstance().init(this);
+
     }
 }

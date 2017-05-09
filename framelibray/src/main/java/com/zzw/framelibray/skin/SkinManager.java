@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.ArrayMap;
 
+import com.zzw.baselibray.util.L;
+import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.skin.attr.SkinView;
 
 import java.util.HashMap;
@@ -19,6 +21,7 @@ import java.util.Set;
 public class SkinManager {
     private static SkinManager mInstance;
     private Context mContext;
+    private SkinResource mSkinResource;
     private Map<Activity, List<SkinView>> mSkinViews = new HashMap<>();
 
     public static SkinManager getInstance() {
@@ -28,6 +31,7 @@ public class SkinManager {
     }
 
     private SkinManager() {
+
     }
 
 
@@ -47,10 +51,9 @@ public class SkinManager {
 
         //初始化皮肤管理
 
-        SkinResource skinResource = new SkinResource(mContext, skinPath);
+        mSkinResource = new SkinResource(mContext, skinPath);
         //改变皮肤
         Set<Activity> keySet = mSkinViews.keySet();
-
 
         for (Activity activity : keySet) {
             List<SkinView> skinViews = mSkinViews.get(activity);
@@ -72,5 +75,34 @@ public class SkinManager {
 
 
         return 0;
+    }
+
+    /**
+     * 获取当前Activity的List<SkinView>集合
+     *
+     * @param activity
+     * @return
+     */
+    public List<SkinView> getSKinViews(Activity activity) {
+
+        return mSkinViews.get(activity);
+    }
+
+    /**
+     * 注册
+     *
+     * @param baseSkinActivity
+     * @param skinViews
+     */
+    public void register(BaseSkinActivity baseSkinActivity, List<SkinView> skinViews) {
+        mSkinViews.put(baseSkinActivity, skinViews);
+    }
+
+    /**
+     * 获取当前皮肤资源管理
+     * @return
+     */
+    public SkinResource getmSkinResource() {
+        return mSkinResource;
     }
 }

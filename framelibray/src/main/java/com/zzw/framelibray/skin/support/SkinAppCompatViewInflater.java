@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.appcompat.R;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
@@ -33,11 +34,14 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
- * Created by zzw on 2017/5/8.
+ * This class is responsible for manually inflating our tinted widgets which are used on devices
+ * running {@link android.os.Build.VERSION_CODES#KITKAT KITKAT} or below. As such, this class
+ * should only be used when running on those devices.
+ * <p>This class two main responsibilities: the first is to 'inject' our tinted views in place of
+ * the framework versions in layout inflation; the second is backport the {@code android:theme}
+ * functionality for any inflated widgets. This include theme inheritance from it's parent.
  */
-
 public class SkinAppCompatViewInflater {
-
 
     private static final Class<?>[] sConstructorSignature = new Class[]{
             Context.class, AttributeSet.class};
@@ -212,15 +216,15 @@ public class SkinAppCompatViewInflater {
      */
     private static Context themifyContext(Context context, AttributeSet attrs,
                                           boolean useAndroidTheme, boolean useAppTheme) {
-        final TypedArray a = context.obtainStyledAttributes(attrs, android.support.v7.appcompat.R.styleable.View, 0, 0);
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.View, 0, 0);
         int themeId = 0;
         if (useAndroidTheme) {
             // First try reading android:theme if enabled
-            themeId = a.getResourceId(android.support.v7.appcompat.R.styleable.View_android_theme, 0);
+            themeId = a.getResourceId(R.styleable.View_android_theme, 0);
         }
         if (useAppTheme && themeId == 0) {
             // ...if that didn't work, try reading app:theme (for legacy reasons) if enabled
-            themeId = a.getResourceId(android.support.v7.appcompat.R.styleable.View_theme, 0);
+            themeId = a.getResourceId(R.styleable.View_theme, 0);
 
             if (themeId != 0) {
                 Log.i(LOG_TAG, "app:theme is now deprecated. "
@@ -303,5 +307,4 @@ public class SkinAppCompatViewInflater {
                     + "attribute defined on view " + mHostView.getClass() + idText);
         }
     }
-
 }
