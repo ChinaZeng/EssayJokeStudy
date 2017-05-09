@@ -120,7 +120,13 @@ public class SkinAppCompatViewInflater {
                 break;
         }
 
-        if (view == null && originalContext != context) {
+//        if (view == null && originalContext != context) {
+//            // If the original context does not equal our themed context, then we need to manually
+//            // inflate it using the name so that android:theme takes effect.
+//            view = createViewFromTag(context, name, attrs);
+//        }
+
+        if (view == null) {
             // If the original context does not equal our themed context, then we need to manually
             // inflate it using the name so that android:theme takes effect.
             view = createViewFromTag(context, name, attrs);

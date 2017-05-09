@@ -65,7 +65,7 @@ public class SkinManager {
                 // 初始化的工作  如果在这里不初始化mSkinResource 在进入的时候如果有皮肤状态路径的话在SkinAttr里面mSkinResource==null就会崩溃
                 mSkinResource = new SkinResource(mContext, currentSkinPath, PackageName);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -127,7 +127,7 @@ public class SkinManager {
      * 改变皮肤
      */
     private void changeSkin() {
-        try{
+        try {
             Set<ISkinChangeListener> keySet = mSkinViews.keySet();
             for (ISkinChangeListener listener : keySet) {
                 List<SkinView> skinViews = mSkinViews.get(listener);
@@ -136,7 +136,7 @@ public class SkinManager {
                 }
                 listener.changeSkin(mSkinResource);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -192,6 +192,15 @@ public class SkinManager {
      */
     public void register(ISkinChangeListener listener, List<SkinView> skinViews) {
         mSkinViews.put(listener, skinViews);
+    }
+
+    /**
+     * 注销
+     *
+     * @param listener
+     */
+    public void unRegister(ISkinChangeListener listener) {
+        mSkinViews.remove(listener);
     }
 
     /**
