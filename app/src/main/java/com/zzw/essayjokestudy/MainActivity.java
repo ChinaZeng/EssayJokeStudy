@@ -4,6 +4,7 @@ package com.zzw.essayjokestudy;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
@@ -24,19 +25,6 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends BaseSkinActivity {
 
-    private UserAidl mUserAidl;
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            mUserAidl = UserAidl.Stub.asInterface(service);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
 
     @Override
     protected int initLayoutId() {
@@ -95,13 +83,10 @@ public class MainActivity extends BaseSkinActivity {
 //                    bindService();
                     break;
                 case R.id.getUserName:
-                    Toast.makeText(this, mUserAidl == null ? "请先绑定" : mUserAidl.getUserName(), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.getPassWord:
-                    Toast.makeText(this, mUserAidl == null ? "请先绑定" : mUserAidl.getPassWord(), Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.unBind:
-                    unbindService();
                     break;
 
             }
@@ -114,36 +99,26 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initData() {
+        startService(new Intent(this, MessageService.class));
+        startService(new Intent(this, GuardService.class));
 
+        //大于等于5.0的才启动JobWakeUpService
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startService(new Intent(this, JobWakeUpService.class));
+        }
     }
 
     /**
      * 绑定Service
      */
     private void bindService() {
-        Intent intent = new Intent();
-        intent.setAction("com.study.aidl.user");
-        // 在Android 5.0之后google出于安全的角度禁止了隐式声明Intent来启动Service.也禁止使用Intent filter.否则就会抛个异常出来
-        intent.setPackage("com.zzw.essayjokestudy");
-        bindService(intent, mConnection, BIND_AUTO_CREATE);
+//        Intent intent = new Intent();
+//        intent.setAction("com.study.aidl.user");
+//        // 在Android 5.0之后google出于安全的角度禁止了隐式声明Intent来启动Service.也禁止使用Intent filter.否则就会抛个异常出来
+//        intent.setPackage("com.zzw.essayjokestudy");
+//        bindService(intent, mConnection, BIND_AUTO_CREATE);
     }
 
-
-    /**
-     * 解绑Service
-     */
-    private void unbindService() {
-        if (mUserAidl != null) {
-            unbindService(mConnection);
-            mUserAidl = null;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService();
-    }
 
     /**
      * 上传错误信息

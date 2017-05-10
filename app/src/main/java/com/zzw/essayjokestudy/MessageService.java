@@ -1,7 +1,11 @@
 package com.zzw.essayjokestudy;
 
+import android.app.Notification;
 import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
@@ -15,6 +19,8 @@ import com.zzw.framelibray.skin.L;
 
 public class MessageService extends Service {
     private static final String TAG = "MessageService";
+
+    private static final int MESSAGE_FOREGROUND_ID = 1;
 
     @Override
     public void onCreate() {
@@ -30,7 +36,6 @@ public class MessageService extends Service {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
 
             }
@@ -40,15 +45,35 @@ public class MessageService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //提高优先级
-
-        return super.onStartCommand(intent, flags, startId);
+        startForeground(MESSAGE_FOREGROUND_ID, new Notification());
+        //绑定建立链接
+        bindService(new Intent(this, GuardService.class), mServiceConnection, Context.BIND_IMPORTANT);
+        return START_STICKY;
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return new ProcessConnection.Stub() {
+
+        };
     }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            //连接上
+            L.e("MessageService-->GuardService 建立链接");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            //断开链接  由于杀进程是一个一个杀的   所以断开的时候重新启动
+            L.e("MessageService-->GuardService 断开链接-->正在重启和重新绑定");
+            startService(new Intent(MessageService.this, GuardService.class));
+            bindService(new Intent(MessageService.this, GuardService.class), mServiceConnection, Context.BIND_IMPORTANT);
+        }
+    };
 
 
 }
