@@ -24,6 +24,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.zzw.essayjokestudy.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,13 +48,13 @@
 
 
         <service
-            android:name=".GuardService"
+            android:name=".twoServiceLife.GuardService"
             android:process=":guard" />
 
-        <service android:name=".MessageService" />
+        <service android:name=".twoServiceLife.MessageService" />
 
         <service
-            android:name=".JobWakeUpService"
+            android:name=".twoServiceLife.JobWakeUpService"
             android:enabled="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 

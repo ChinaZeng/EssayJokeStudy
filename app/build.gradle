@@ -20,7 +20,20 @@ android {
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
+            jni.srcDirs = []//设置禁止gradle生成Android.mk
+            jniLibs.srcDirs = ['libs']
         }
+    }
+
+    task ndkBuild(type: Exec) {//设置新的so的生成目录
+         commandLine "F:\\android_develop\\StudioSdk\\ndk-bundle\\ndk-build.cmd", // 这个路径是你ndk的安装路径
+                 'NDK_PROJECT_PATH=build/intermediates/ndk',
+                 'NDK_LIBS_OUT=libs',
+                 'APP_BUILD_SCRIPT=jni/Android.mk',
+                 'NDK_APPLICATION_MK=jni/Application.mk'    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn ndkBuild
     }
 
     signingConfigs {
@@ -89,4 +102,5 @@ dependencies {
 //    compile rootProject.ext.dependencies["rxjava"]
 //    compile 'com.alipay.euler:andfix:0.5.0@aar'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'me.weyye.hipermission:library:1.0.2'
 }

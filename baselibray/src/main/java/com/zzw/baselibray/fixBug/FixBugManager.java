@@ -122,7 +122,8 @@ public class FixBugManager {
         File destFile = new File(mDexDir, srcFile.getName());
         if (destFile.exists()) {
             Log.d(TAG, "patch [" + fixDexPath + "] has be loaded.");
-            return;
+//            return;
+            destFile.delete();
         }
         FileUtil.copyFile(srcFile, destFile);// copy to patch's directory
 //        FileUtil.deleteFile(srcFile);//copy完成后删除

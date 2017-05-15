@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+
+    <!--本地安装包下载位置-->
+    <cache-path
+        name="cacheDownload"
+        path="/down" />
+    <external-cache-path
+        name="exCacheDownload"
+        path="/down" /><!--name必须不一样  否则只生效最后一个-->
+    <root-path
+        name="sdcardDownload"
+        path="/mnt/sdcard/com.zzw.essayjokestudy/down" />
+
+    <!--bugly更新或者热补丁下载位置-->
+    <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->
+    <external-path
+        name="beta_external_path"
+        path="Download/" />
+    <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
+    <external-path
+        name="beta_external_files_path"
+        path="Android/data/" />
+
+</paths>

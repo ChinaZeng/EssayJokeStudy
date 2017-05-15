@@ -21,4 +21,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':baselibray')
+    compile rootProject.ext.dependencies["okhttp3"]
+    compile rootProject.ext.dependencies["gson"]
 }

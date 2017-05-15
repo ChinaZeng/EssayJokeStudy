@@ -11,7 +11,7 @@ import android.util.Log;
 public class L {
     private static final String TAG = "L";
 
-    private static boolean SHOW_LOG = true;
+    private static boolean SHOW_LOG = false;
 
     public static void e(String msg) {
         e(TAG, msg);

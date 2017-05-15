@@ -31,7 +31,7 @@
         android:id="@+id/bind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="bindService" />
+        android:text="安装--》当前为2.0" />
 
     <Button
         android:id="@+id/getUserName"

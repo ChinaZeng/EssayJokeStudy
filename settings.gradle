@@ -1,1 +1,1 @@
-include ':app', ':baselibray', ':framelibray'
+include ':app', ':baselibray', ':framelibray', ':DroidPlugin'

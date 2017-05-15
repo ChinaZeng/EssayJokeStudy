@@ -5,5 +5,5 @@ package com.zzw.essayjokestudy;
 
 interface ProcessConnection {
 
-
+        String getUserName();
 }
