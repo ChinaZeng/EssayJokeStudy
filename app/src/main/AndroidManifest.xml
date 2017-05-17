@@ -46,6 +46,8 @@
 
         <activity android:name=".TestSkinActivity" />
 
+        <activity android:name="com.zzw.framelibray.selectimage.SelectImageActivity" />
+
 
         <service
             android:name=".twoServiceLife.GuardService"

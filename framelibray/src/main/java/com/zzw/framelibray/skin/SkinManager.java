@@ -179,7 +179,7 @@ public class SkinManager {
      * @param listener
      * @return
      */
-    public List<SkinView> getSKinViews(ISkinChangeListener listener) {
+    public List<SkinView> getSkinViews(ISkinChangeListener listener) {
 
         return mSkinViews.get(listener);
     }
@@ -199,7 +199,7 @@ public class SkinManager {
      *
      * @param listener
      */
-    public void unRegister(ISkinChangeListener listener) {
+    public void unregister(ISkinChangeListener listener) {
         mSkinViews.remove(listener);
     }
 

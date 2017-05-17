@@ -12,7 +12,7 @@ public class SkinPreUtils {
     private Context mContext;
 
     private SkinPreUtils(Context context) {
-        this.mContext = context.getApplicationContext();//防止内存泄露
+        this.mContext=context;
     }
 
 
@@ -22,9 +22,14 @@ public class SkinPreUtils {
                 mInstance = new SkinPreUtils(context);
             }
         }
-
+//        mInstance.init(context);
         return mInstance;
     }
+
+//    private void init(Context context) {
+//        this.mContext = context;
+//    }
+
 
     /**
      * 保存当前皮肤路径

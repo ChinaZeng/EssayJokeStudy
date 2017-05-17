@@ -35,7 +35,7 @@ import java.util.Map;
 
 /**
  * This class is responsible for manually inflating our tinted widgets which are used on devices
- * running {@link android.os.Build.VERSION_CODES#KITKAT KITKAT} or below. As such, this class
+ * running {@link Build.VERSION_CODES#KITKAT KITKAT} or below. As such, this class
  * should only be used when running on those devices.
  * <p>This class two main responsibilities: the first is to 'inject' our tinted views in place of
  * the framework versions in layout inflation; the second is backport the {@code android:theme}

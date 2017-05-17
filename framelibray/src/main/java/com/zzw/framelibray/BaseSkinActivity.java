@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewParent;
 
 import com.zzw.baselibray.base.BaseActivity;
-import com.zzw.framelibray.skin.L;
 import com.zzw.framelibray.skin.SkinManager;
 import com.zzw.framelibray.skin.SkinResource;
 import com.zzw.framelibray.skin.attr.SkinAttr;
@@ -54,7 +53,6 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
         try {
             //1.创建View
             View view = createView(parent, name, context, attrs);
-            L.e(TAG, "parent:" + parent + " -->" + "name:" + name + "  -->View:" + view);
 
             //2.解析属性 src textColor background  自定义属性
             if (view != null) {
@@ -82,7 +80,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
      * @param skinView
      */
     private void managerSkinView(SkinView skinView) {
-        List<SkinView> skinViews = SkinManager.getInstance().getSKinViews(this);
+        List<SkinView> skinViews = SkinManager.getInstance().getSkinViews(this);
         if (skinViews == null) {
             skinViews = new ArrayList<>();
             SkinManager.getInstance().register(this, skinViews);
@@ -93,7 +91,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
 
     @Override
     protected void onDestroy() {
-        SkinManager.getInstance().unRegister(this);
+        SkinManager.getInstance().unregister(this);
         super.onDestroy();
     }
 

@@ -9,9 +9,9 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.zzw.essayjokestudy.ProcessConnection;
-import com.zzw.framelibray.skin.L;
 
 /**
  * Created by zzw on 2017/5/9.
@@ -43,7 +43,7 @@ public class MessageService extends Service {
                 while (true) {
                     try {
                         Thread.sleep(2000);
-                        L.e(TAG, "等待接受消息");
+                        Log.e(TAG, "等待接受消息");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -78,13 +78,13 @@ public class MessageService extends Service {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             //连接上
-            L.e("MessageService-->GuardService 建立链接");
+            Log.e(TAG,"MessageService-->GuardService 建立链接");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             //断开链接  由于杀进程是一个一个杀的   所以断开的时候重新启动
-            L.e("MessageService-->GuardService 断开链接-->正在重启和重新绑定");
+            Log.e(TAG,"MessageService-->GuardService 断开链接-->正在重启和重新绑定");
             startService(new Intent(MessageService.this, GuardService.class));
             bindService(new Intent(MessageService.this, GuardService.class), mServiceConnection, Context.BIND_IMPORTANT);
         }

@@ -13,9 +13,11 @@ import android.os.IBinder;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zzw.baselibray.ExceptionCrashHandler;
+import com.zzw.baselibray.dialog.AlertDialog;
 import com.zzw.baselibray.fixBug.FixBugManager;
 import com.zzw.baselibray.http.HttpUtils;
 import com.zzw.baselibray.ioc.OnClick;
@@ -23,6 +25,8 @@ import com.zzw.essayjokestudy.bean.Person;
 import com.zzw.essayjokestudy.utils.PathchUtils;
 import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.db.DaoSupportFactory;
+import com.zzw.framelibray.selectimage.ImageSelector;
+import com.zzw.framelibray.selectimage.SelectImageActivity;
 import com.zzw.framelibray.skin.SkinManager;
 
 import java.io.File;
@@ -92,14 +96,36 @@ public class MainActivity extends BaseSkinActivity {
         try {
             switch (view.getId()) {
                 case R.id.bind:
-                    DaoSupportFactory.getFactory().getDao(Person.class).insert(new Person("zzw", 23, "zzw@qq.com"));
+                    ImageSelector.create().single().showCamera(true).start(this, 5);
+
+//                    final AlertDialog dialog = new AlertDialog.Builder(this)
+//                            .setContentView(R.layout.dialog_)
+//                            .setText(R.id.tv, "测试")
+//                            .formBottom(true)
+//                            .fullWidth()
+//                            .create();
+//
+//                    dialog.setOnclickListener(R.id.tv, new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            TextView textView = dialog.getView(R.id.tv);
+//                            Toast.makeText(v.getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//                    dialog.show();
+
+//                    DaoSupportFactory.getFactory().getDao(Person.class).insert(new Person("zzw", 23, "zzw@qq.com"));
                     break;
                 case R.id.getUserName:
-                    List<Person> d = new ArrayList<>();
-                    for (int i = 0; i < 20; i++) {
-                        d.add(new Person("zzw", i, "zzw@qq.com" + i));
-                    }
-                    DaoSupportFactory.getFactory().getDao(Person.class).insert(d);
+                    ImageSelector.create().multi().showCamera(true).count(8).start(this, 5);
+
+//                    List<Person> d = new ArrayList<>();
+//
+//                    for (int i = 0; i < 20; i++) {
+//                        d.add(new Person("zzw", i, "zzw@qq.com" + i));
+//                    }
+//                    DaoSupportFactory.getFactory().getDao(Person.class).insert(d);
                     break;
                 case R.id.getPassWord:
                     List<Person> list = DaoSupportFactory.getFactory().getDao(Person.class).querySupport().query();

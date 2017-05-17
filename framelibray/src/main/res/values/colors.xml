@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="title_bar_bg_day">#ffdcd9cf</color>
+    <color name="s9">#ff6b5547</color>
+
+
+
+    <color name="media_choose_op_btn_enabled">#ffff819f</color>
+    <color name="media_choose_op_btn_disabled">#ffffffff</color>
+
+</resources>

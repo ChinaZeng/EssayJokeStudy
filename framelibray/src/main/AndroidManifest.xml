@@ -3,11 +3,12 @@
     package="com.zzw.framelibray">
 
 
-
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
+
+        <activity android:name=".selectimage.SelectImageActivity" />
 
     </application>
 

@@ -20,15 +20,12 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         try {
-            //热修复
-            FixBugManager manager = new FixBugManager(this);
-            manager.loadFixDex();
-
-
+            HttpUtils.init(new OkHttpEngine());
             //插件换肤
             SkinManager.getInstance().init(this);
-
-            HttpUtils.init(new OkHttpEngine());
+            //热修复
+//            FixBugManager manager = new FixBugManager(this);
+//            manager.loadFixDex();
         } catch (Exception e) {
             e.printStackTrace();
         }

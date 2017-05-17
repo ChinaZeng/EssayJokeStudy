@@ -57,15 +57,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent(this, clazz);
         startActivity(intent);
     }
-
-    /**
-     * findViewById
-     *
-     * @param viewId
-     * @param <T>
-     * @return View
-     */
-    protected <T extends View> T viewById(@IdRes int viewId) {
-        return (T) findViewById(viewId);
-    }
+//
+//    /**
+//     * findViewById
+//     *
+//     * @param viewId
+//     * @param <T>
+//     * @return View
+//     */
+//    protected <T extends View> T viewById(@IdRes int viewId) {
+//        return (T) findViewById(viewId);
+//    }
 }

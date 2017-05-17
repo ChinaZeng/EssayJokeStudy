@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">framelibray</string>
+
+
+    <string name="media_choose_ok">确定</string>
+    <string name="media_choose_only_single">不支持多选</string>
+    <string name="media_choose_preview">预览</string>
+
 </resources>
