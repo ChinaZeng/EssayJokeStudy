@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ViewUtils;
 import android.view.View;
+
+import com.zzw.baselibray.permission.PermissionHelper;
 
 import java.io.IOException;
 
@@ -45,8 +48,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initData();
 
 
-
-
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        PermissionHelper.requestPermissionsResult(this, requestCode, permissions);
+//    }
 
     /**
      * 启动Activity

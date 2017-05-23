@@ -2,31 +2,28 @@ package com.zzw.essayjokestudy;
 
 
 import android.Manifest;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zzw.baselibray.ExceptionCrashHandler;
-import com.zzw.baselibray.dialog.AlertDialog;
 import com.zzw.baselibray.fixBug.FixBugManager;
-import com.zzw.baselibray.http.HttpUtils;
 import com.zzw.baselibray.ioc.OnClick;
+import com.zzw.baselibray.permission.PermissionHelper;
+import com.zzw.baselibray.permission.RequestPermissionFail;
+import com.zzw.baselibray.permission.RequestPermissionSucceed;
 import com.zzw.essayjokestudy.bean.Person;
 import com.zzw.essayjokestudy.utils.PathchUtils;
 import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.db.DaoSupportFactory;
 import com.zzw.framelibray.selectimage.ImageSelector;
-import com.zzw.framelibray.selectimage.SelectImageActivity;
 import com.zzw.framelibray.skin.SkinManager;
 
 import java.io.File;
@@ -143,6 +140,17 @@ public class MainActivity extends BaseSkinActivity {
     }
 
 
+    @RequestPermissionSucceed(requestCode = 1)
+    private void a() {
+        showToast("success");
+    }
+
+    @RequestPermissionFail(requestCode = 1)
+    private void b() {
+        showToast("fail");
+    }
+
+
     private String patchPath = Environment.getExternalStorageDirectory().getAbsolutePath()
             + File.separator + "down" + File.separator + "version_1.0_2.0.patch";
 
@@ -151,32 +159,38 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initData() {
-        List<PermissonItem> permissonItems = new ArrayList<PermissonItem>();
-        permissonItems.add(new PermissonItem(Manifest.permission.READ_EXTERNAL_STORAGE, "读取内存卡", R.drawable.permission_ic_memory));
-        permissonItems.add(new PermissonItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "写入内存卡", R.drawable.permission_ic_location));
-        HiPermission.create(MainActivity.this)
-                .permissions(permissonItems)
-                .checkMutiPermission(new PermissionCallback() {
-                    @Override
-                    public void onClose() {
-                        showToast("用户关闭权限申请");
-                    }
 
-                    @Override
-                    public void onFinish() {
-                        showToast("所有权限申请完成");
-                    }
+        PermissionHelper.with(this)
+                .requestCode(1)
+                .requestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request();
 
-                    @Override
-                    public void onDeny(String permisson, int position) {
-                        showToast(permisson + "");
-                    }
-
-                    @Override
-                    public void onGuarantee(String permisson, int position) {
-                        showToast(permisson + "");
-                    }
-                });
+//        List<PermissonItem> permissonItems = new ArrayList<PermissonItem>();
+//        permissonItems.add(new PermissonItem(Manifest.permission.READ_EXTERNAL_STORAGE, "读取内存卡", R.drawable.permission_ic_memory));
+//        permissonItems.add(new PermissonItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "写入内存卡", R.drawable.permission_ic_location));
+//        HiPermission.create(MainActivity.this)
+//                .permissions(permissonItems)
+//                .checkMutiPermission(new PermissionCallback() {
+//                    @Override
+//                    public void onClose() {
+//                        showToast("用户关闭权限申请");
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        showToast("所有权限申请完成");
+//                    }
+//
+//                    @Override
+//                    public void onDeny(String permisson, int position) {
+//                        showToast(permisson + "");
+//                    }
+//
+//                    @Override
+//                    public void onGuarantee(String permisson, int position) {
+//                        showToast(permisson + "");
+//                    }
+//                });
 
 
     }
@@ -272,4 +286,10 @@ public class MainActivity extends BaseSkinActivity {
         return true;
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionHelper.requestPermissionsResult(this, requestCode, permissions);
+    }
 }

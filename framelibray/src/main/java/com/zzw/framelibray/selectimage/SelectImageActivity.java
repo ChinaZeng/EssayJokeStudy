@@ -9,6 +9,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,6 +26,7 @@ import com.zzw.baselibray.base.BaseActivity;
 import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.DefaultNavigationBar;
 import com.zzw.framelibray.R;
+import com.zzw.framelibray.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 
@@ -96,6 +98,9 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
         DefaultNavigationBar navigationBar = new DefaultNavigationBar.Builder(this)
                 .setTitle("所有图片")
                 .builder();
+
+        // 改变状态栏的颜色
+        StatusBarUtil.statusBarTintColor(this, Color.parseColor("#261f1f"));
     }
 
     @Override
