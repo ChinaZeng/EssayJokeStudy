@@ -5,8 +5,13 @@
     <color name="s9">#ff6b5547</color>
 
 
-
+    <!--选择照片-->
     <color name="media_choose_op_btn_enabled">#ffff819f</color>
     <color name="media_choose_op_btn_disabled">#ffffffff</color>
+
+
+
+
+
 
 </resources>

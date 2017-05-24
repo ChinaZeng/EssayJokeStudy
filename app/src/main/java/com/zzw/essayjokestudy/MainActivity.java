@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -84,6 +86,7 @@ public class MainActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
+
 
     }
 

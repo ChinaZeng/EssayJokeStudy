@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zzw.essayjokestudy.BannerActivity">
+
+    <com.zzw.framelibray.banner.BannerView
+        android:id="@+id/bv"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:bottomColor="#65000000"
+        app:dotDistance="8dp"
+        app:dotGravity="center"
+        app:dotIndicatorFocus="#FE9F00"
+        app:dotIndicatorNormal="#50ffffff"
+        app:dotSize="8dp"
+        app:heightProportion="3"
+        app:showDesc="true"
+        app:widthProportion="8" />
+
+
+</RelativeLayout>

@@ -26,11 +26,12 @@ android {
     }
 
     task ndkBuild(type: Exec) {//设置新的so的生成目录
-         commandLine "F:\\android_develop\\StudioSdk\\ndk-bundle\\ndk-build.cmd", // 这个路径是你ndk的安装路径
-                 'NDK_PROJECT_PATH=build/intermediates/ndk',
-                 'NDK_LIBS_OUT=libs',
-                 'APP_BUILD_SCRIPT=jni/Android.mk',
-                 'NDK_APPLICATION_MK=jni/Application.mk'    }
+        commandLine "F:\\android_develop\\StudioSdk\\ndk-bundle\\ndk-build.cmd", // 这个路径是你ndk的安装路径
+                'NDK_PROJECT_PATH=build/intermediates/ndk',
+                'NDK_LIBS_OUT=libs',
+                'APP_BUILD_SCRIPT=jni/Android.mk',
+                'NDK_APPLICATION_MK=jni/Application.mk'
+    }
 
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn ndkBuild
