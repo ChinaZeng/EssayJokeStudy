@@ -32,11 +32,9 @@ public class DefaultNavigationBar<D extends
         // 绑定效果
         setText(R.id.title, getParams().mTitle);
         setText(R.id.right_text, getParams().mRightText);
-
         setOnClickListener(R.id.right_text, getParams().mRightClickListener);
         // 左边 要写一个默认的  finishActivity
         setOnClickListener(R.id.back,getParams().mLeftClickListener);
-
         setVisibility(R.id.back,getParams().leftIconVisible);
     }
 
@@ -65,7 +63,6 @@ public class DefaultNavigationBar<D extends
         }
 
         // 1. 设置所有效果
-
         public DefaultNavigationBar.Builder setTitle(String title) {
             P.mTitle = title;
             return this;
@@ -111,7 +108,7 @@ public class DefaultNavigationBar<D extends
         public static class DefaultNavigationParams extends
                 AbsNavigationBar.Builder.AbsNavigationParams {
 
-            // 2.所有效果放置
+            // 所有效果放置
             public String mTitle;
 
             public String mRightText;

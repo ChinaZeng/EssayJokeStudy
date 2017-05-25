@@ -89,7 +89,7 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
         applyView();
     }
 
-    // Builder  仿照系统写的， 套路，活  AbsNavigationBar  Builder  参数Params
+    // Builder  仿照系统写的， 套路 AbsNavigationBar  Builder  参数Params
     public abstract static class Builder {
 
         public Builder(Context context, ViewGroup parent) {
