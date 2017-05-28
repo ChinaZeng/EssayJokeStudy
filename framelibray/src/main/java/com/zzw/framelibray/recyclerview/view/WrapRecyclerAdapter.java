@@ -2,6 +2,7 @@ package com.zzw.framelibray.recyclerview.view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +12,20 @@ import com.zzw.framelibray.recyclerview.adapter.OnLongClickListener;
 
 
 /**
- * Created by zzw on 2016/12/29.
+ * Created by zzw on 2017/05/28.
  * Description: 可以添加头部和底部的Adapter
  */
 public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static String TAG = "WrapRecyclerAdapter";
-    // 用来存放底部和头部View的集合  比Map要高效一些
-    // 可以点击进入看一下官方的解释
+
     /**
      * SparseArrays map integers to Objects.  Unlike a normal array of Objects,
      * there can be gaps in the indices.  It is intended to be more memory efficient
      * than using a HashMap to map Integers to Objects, both because it avoids
      * auto-boxing keys and its data structure doesn't rely on an extra entry object
      * for each mapping.
+     *
+     * SparseArray是一个<int , Object>的HashMap  比HashMap更高效
      */
     private SparseArray<View> mHeaderViews;
     private SparseArray<View> mFooterViews;
@@ -33,7 +35,9 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     // 基本的底部类型开始位置  用于viewType
     private static int BASE_ITEM_TYPE_FOOTER = 20000000;
 
-    // 列表的Adapter
+    /**
+     * 数据列表的Adapter
+     */
     private RecyclerView.Adapter mAdapter;
 
     public WrapRecyclerAdapter(RecyclerView.Adapter adapter) {
@@ -88,6 +92,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (isHeaderPosition(position) || isFooterPosition(position)) {
             return;
         }
+
         // 计算一下位置
         final int adapterPosition = position - mHeaderViews.size();
         mAdapter.onBindViewHolder(holder, adapterPosition);
@@ -97,7 +102,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemClickListener.onItemClick(adapterPosition);
+                    mItemClickListener.onItemClick(v, adapterPosition);
                 }
             });
         }
@@ -105,7 +110,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    return mLongClickListener.onLongClick(adapterPosition);
+                    return mLongClickListener.onLongClick(v, adapterPosition);
                 }
             });
         }

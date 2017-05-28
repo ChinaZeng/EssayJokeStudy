@@ -8,14 +8,14 @@ import android.view.View;
 
 
 /**
- * Created by zzw on 2016/12/29.
+ * Created by zzw on 2017/05/28.
  * Description: 可以添加头部和底部的RecyclerView
  */
 public class WrapRecyclerView extends RecyclerView {
     // 包裹了一层的头部底部Adapter
     private WrapRecyclerAdapter mWrapRecyclerAdapter;
     // 这个是列表数据的Adapter
-    private RecyclerView.Adapter mAdapter;
+    private Adapter mAdapter;
 
     // 增加一些通用功能
     // 空列表数据应该显示的空View
@@ -183,9 +183,11 @@ public class WrapRecyclerView extends RecyclerView {
             if (mEmptyView != null) {
                 mEmptyView.setVisibility(VISIBLE);
             }
-//            else {
-//                mEmptyView.setVisibility(GONE);
-//            }
+        } else {
+            // 没有数据
+            if (mEmptyView != null) {
+                mEmptyView.setVisibility(GONE);
+            }
         }
     }
 

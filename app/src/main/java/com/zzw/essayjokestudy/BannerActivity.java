@@ -53,6 +53,9 @@ public class BannerActivity extends AppCompatActivity {
             }
         });
         mBannerView.startRoll();
+
+//        ListView listView = new ListView(this);
+//        listView.addHeaderView();
     }
 
 

@@ -185,8 +185,6 @@ public class DaoSupport<T> implements IDaoSupport<T> {
                 values, whereClause, whereArgs);
     }
 
-
-
     // 结合到
     // 1. 网络引擎的缓存
     // 2. 资源加载的源码NDK

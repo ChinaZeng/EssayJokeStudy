@@ -71,7 +71,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemClickListener.onItemClick(holder.getAdapterPosition());
+                    mItemClickListener.onItemClick(v, holder.getAdapterPosition());
                 }
             });
         }
@@ -79,21 +79,22 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    return mLongClickListener.onLongClick(holder.getAdapterPosition());
+                    return mLongClickListener.onLongClick(v, holder.getAdapterPosition());
                 }
             });
         }
 
         // 回传出去
-        convert(holder, mData.get(position),position);
+        convert(holder, mData.get(position), position);
     }
+
 
     /**
      * 利用抽象方法回传出去，每个不一样的Adapter去设置
      *
      * @param item 当前的数据
      */
-    public abstract void convert(ViewHolder holder, T item,int position);
+    public abstract void convert(ViewHolder holder, T item, int position);
 
     @Override
     public int getItemCount() {

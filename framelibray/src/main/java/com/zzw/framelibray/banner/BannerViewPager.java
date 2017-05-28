@@ -33,8 +33,9 @@ public class BannerViewPager extends ViewPager {
     //自定义的改变ViewPager页面切换的动画持续时间
     private BannerScroller mBannerScroller;
 
-    private int mCutDownTime = 3500;//切换间隔时间
-    private final int SCROLL_MSG = 0x001;
+    //切换间隔时间
+    private int mCutDownTime = 3500;
+    private static final int SCROLL_MSG = 0x001;
 
     //复用的界面  设置集合是为了防止滑动过快 复用的View还存在parent
     private List<View> mConvertViews;
@@ -160,6 +161,7 @@ public class BannerViewPager extends ViewPager {
                     }
                 }
             });
+//            mConvertViews.remove(bannerItemView);
             return bannerItemView;
 //            return super.instantiateItem(container, position);
         }
@@ -170,7 +172,9 @@ public class BannerViewPager extends ViewPager {
         public void destroyItem(ViewGroup container, int position, Object object) {
 //            super.destroyItem(container, position, object);
             container.removeView((View) object);
-            mConvertViews.add((View) object);
+
+            if (!mConvertViews.contains(object))
+                mConvertViews.add((View) object);
         }
     }
 
