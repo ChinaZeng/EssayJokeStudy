@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zzw.baselibray.imageloader.BaseImageLoaderStrategy;
+import com.zzw.baselibray.imageloader.ImageConfig;
+import com.zzw.baselibray.imageloader.ImageLoader;
+
 /**
  * Created by zzw on 2016/12/28.
  * Description: RecyclerView的ViewHolder
@@ -74,6 +78,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public void setOnIntemLongClickListener(View.OnLongClickListener listener) {
         itemView.setOnLongClickListener(listener);
     }
+
 
     /**
      * 设置图片通过路径,这里稍微处理得复杂一些，因为考虑加载图片的第三方可能不太一样

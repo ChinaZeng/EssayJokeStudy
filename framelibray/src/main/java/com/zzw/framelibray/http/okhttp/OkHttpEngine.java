@@ -1,14 +1,14 @@
-package com.zzw.framelibray.http;
+package com.zzw.framelibray.http.okhttp;
 
 import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.zzw.baselibray.http.EngineCallBack;
 import com.zzw.baselibray.http.HttpUtils;
 import com.zzw.baselibray.http.IHttpEngine;
+import com.zzw.framelibray.http.CacheDataUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +37,7 @@ public class OkHttpEngine implements IHttpEngine {
 
     private static Handler mHandler = new Handler();
 
+    //EngineCallBack callBack  -->  HttpCallBack<T>
     @Override
     public void post(boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
 
@@ -53,16 +54,28 @@ public class OkHttpEngine implements IHttpEngine {
         mOkHttpClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
-                        callBack.onError(e);
+                    public void onFailure(Call call, final IOException e) {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onError(e);
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
-                        String result = response.body().string();
+                        final String result = response.body().string();
                         Log.e("Post返回结果：", jointUrl);
-                        callBack.onSuccess(result);
+                        mHandler.post(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              // 2.2 执行成功方法
+                                              callBack.onSuccess(result);
+                                          }
+                                      }
+                        );
                     }
                 }
         );
@@ -171,6 +184,7 @@ public class OkHttpEngine implements IHttpEngine {
                         }
                     }
                 }
+
                 mHandler.post(new Runnable() {
                                   @Override
                                   public void run() {

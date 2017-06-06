@@ -14,19 +14,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zzw.baselibray.base.BaseActivity;
+import com.zzw.essayjokestudy.service.WXService;
+import com.zzw.framelibray.FrameActivity;
 import com.zzw.framelibray.banner.BannerAdapter;
 import com.zzw.framelibray.banner.BannerView;
+import com.zzw.framelibray.http.retrofit.ErrorHandleSubscriber;
+import com.zzw.framelibray.http.retrofit.RetrofitHttpEngine;
+import com.zzw.framelibray.http.retrofit.RxUtils;
 import com.zzw.framelibray.recyclerview.adapter.OnItemClickListener;
 import com.zzw.framelibray.recyclerview.view.DefaultLoadCreator;
 import com.zzw.framelibray.recyclerview.view.DefaultRefreshCreator;
 import com.zzw.framelibray.recyclerview.view.LoadRefreshRecyclerView;
 import com.zzw.framelibray.recyclerview.view.LoadViewCreator;
 import com.zzw.framelibray.recyclerview.view.RefreshRecyclerView;
-import com.zzw.framelibray.recyclerview.view.WrapRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Created by zzw on 2017/5/25.
@@ -34,7 +39,7 @@ import java.util.List;
  * Des:
  */
 
-public class RecyclerViewActivity extends BaseActivity {
+public class RecyclerViewActivity extends FrameActivity {
 
     private LoadRefreshRecyclerView mRecyclerView;
 
@@ -58,10 +63,11 @@ public class RecyclerViewActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDatas = new ArrayList<>();
         for (int i = 1; i < 20; i++) {
-            mDatas.add("" + i);
+            mDatas.add("哈哈哈啊哈哈" + i);
         }
         HomeAdapter adapter = new HomeAdapter(this, mDatas);
         mRecyclerView.setOnItemClickListener(new OnItemClickListener() {
@@ -73,7 +79,7 @@ public class RecyclerViewActivity extends BaseActivity {
         mRecyclerView.setAdapter(adapter);
 
         LoadViewCreator loadViewCreator = new DefaultLoadCreator();
-        
+
         //手动点击 没有更多了  然后状态重置并且自动加载  触发加载回调
         loadViewCreator.setOnNoLoadMoreClickListener(new LoadViewCreator.OnNoLoadMoreClickListener() {
             @Override
@@ -122,6 +128,17 @@ public class RecyclerViewActivity extends BaseActivity {
         mRecyclerView.addHeaderView(getHeaderView());
 
 //        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+
+        RetrofitHttpEngine.obtainRetrofitService(WXService.class)
+                .getInfo("b622c4ab2cde18710dc2a0771e9171d5", 1, 20, "json")
+                .compose(RxUtils.applySchedulers(RecyclerViewActivity.this))
+                .subscribe(new ErrorHandleSubscriber<Object>(RetrofitHttpEngine.getErrorHandlerFactory()) {
+                    @Override
+                    public void onNext(Object o) {
+                        Timber.e(o.toString());
+                    }
+                });
+
     }
 
     private View getHeaderView() {

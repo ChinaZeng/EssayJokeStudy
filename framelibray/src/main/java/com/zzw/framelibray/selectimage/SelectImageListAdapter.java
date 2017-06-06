@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.zzw.framelibray.GlideHolderImageLoader;
+import com.zzw.framelibray.recyclerview.adapter.GlideHolderImageLoader;
 import com.zzw.framelibray.R;
 import com.zzw.framelibray.recyclerview.adapter.CommonRecyclerAdapter;
 import com.zzw.framelibray.recyclerview.adapter.ViewHolder;

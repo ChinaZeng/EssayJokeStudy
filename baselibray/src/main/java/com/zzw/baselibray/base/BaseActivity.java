@@ -10,16 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ViewUtils;
 import android.view.View;
 
-import com.zzw.baselibray.permission.PermissionHelper;
 
 import java.io.IOException;
 
 /**
  * Created by zzw on 2017/5/4.
- * <p>
  * 注意:只能放每个Activity都要用的通用方法.
  * 如果是两个或者两个以上的地方要使用,最好是写一个工具类.
- * <p>
  * 业务层不要直接集成BaseActivity  永远留一层   framelibray--->BaseSkinActivity
  */
 
@@ -48,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initData();
 
 
+    //权限申请在具体的activity里面重写
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);

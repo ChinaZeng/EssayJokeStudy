@@ -25,6 +25,7 @@ import com.zzw.essayjokestudy.bean.Person;
 import com.zzw.essayjokestudy.utils.PathchUtils;
 import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.DefaultNavigationBar;
+import com.zzw.framelibray.FrameActivity;
 import com.zzw.framelibray.db.DaoSupportFactory;
 import com.zzw.framelibray.selectimage.ImageSelector;
 import com.zzw.framelibray.skin.SkinManager;
@@ -41,7 +42,7 @@ import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissonItem;
 
 
-public class MainActivity extends BaseSkinActivity {
+public class MainActivity extends FrameActivity {
 
 
     @Override

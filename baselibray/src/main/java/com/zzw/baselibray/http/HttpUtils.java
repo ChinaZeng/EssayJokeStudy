@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class HttpUtils {
 
-
     // 直接带参数 ，链式调用
     private String mUrl;
 

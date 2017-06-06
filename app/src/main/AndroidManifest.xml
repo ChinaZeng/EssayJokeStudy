@@ -15,6 +15,9 @@
     <!-- JobWakeUpService权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -49,7 +52,6 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".BannerActivity">
-
 
 
         </activity>

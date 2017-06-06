@@ -1,6 +1,8 @@
 package com.zzw.essayjokestudy;
 
+import android.content.Context;
 import android.os.Environment;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 

@@ -1,4 +1,4 @@
-package com.zzw.framelibray;
+package com.zzw.framelibray.http;
 
 import android.content.Context;
 
@@ -9,7 +9,6 @@ import com.zzw.baselibray.http.HttpUtils;
 import java.util.Map;
 
 
-
 /**
  * Created by zzw on 2017/5/13.
  * Version:1.0
@@ -17,6 +16,7 @@ import java.util.Map;
  */
 
 public abstract class HttpCallBack<T> implements EngineCallBack {
+
     @Override
     public void onPreExecute(Context context, Map<String, Object> params) {
         // 大大方方的添加公用参数  与项目业务逻辑有关
@@ -36,7 +36,7 @@ public abstract class HttpCallBack<T> implements EngineCallBack {
     }
 
     // 开始执行了
-    public void onPreExecute(){
+    public void onPreExecute() {
 
     }
 

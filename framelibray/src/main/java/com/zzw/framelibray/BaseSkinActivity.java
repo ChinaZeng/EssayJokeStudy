@@ -50,6 +50,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
     }
 
 
+    //LayoutInflaterFactory回调
     @Override
     public final View onCreateView(View parent, String name,
                                    Context context, AttributeSet attrs) {
@@ -106,7 +107,6 @@ public abstract class BaseSkinActivity extends BaseActivity implements LayoutInf
 
 
     }
-
 
 
     /**

@@ -1,9 +1,11 @@
-package com.zzw.framelibray;
+package com.zzw.framelibray.recyclerview.adapter;
 
 import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.zzw.baselibray.imageloader.ImageLoader;
+import com.zzw.framelibray.glide.GlideImageConfig;
 import com.zzw.framelibray.recyclerview.adapter.ViewHolder;
 
 /**
@@ -20,7 +22,11 @@ public class GlideHolderImageLoader extends ViewHolder.HolderImageLoader {
 
     @Override
     public void displayImage(Context context, ImageView imageView, String imagePath) {
-        Glide.with(context).load(imagePath)
-                .centerCrop().into(imageView);
+        ImageLoader.getInstance().loadImage(context, GlideImageConfig
+                .builder()
+                .imagerView(imageView)
+                .url(imagePath)
+                .build()
+        );
     }
 }

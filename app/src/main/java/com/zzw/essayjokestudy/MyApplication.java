@@ -1,11 +1,7 @@
 package com.zzw.essayjokestudy;
 
 
-import com.zzw.baselibray.base.BaseApplication;
-import com.zzw.baselibray.fixBug.FixBugManager;
-import com.zzw.baselibray.http.HttpUtils;
-import com.zzw.framelibray.http.OkHttpEngine;
-import com.zzw.framelibray.skin.SkinManager;
+import com.zzw.framelibray.*;
 
 
 /**
@@ -14,22 +10,13 @@ import com.zzw.framelibray.skin.SkinManager;
  * Des:
  */
 
-public class MyApplication extends BaseApplication {
+public class MyApplication extends FrameApplication {
+
 
     @Override
     public void onCreate() {
+        CommonData.LOG_DEBUG = BuildConfig.LOG_DEBUG;//必须在这初始化
         super.onCreate();
-        try {
-            HttpUtils.init(new OkHttpEngine());
-            //插件换肤
-            SkinManager.getInstance().init(this);
-            //热修复
-//            FixBugManager manager = new FixBugManager(this);
-//            manager.loadFixDex();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
     }
+
 }
