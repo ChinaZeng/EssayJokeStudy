@@ -1,4 +1,4 @@
-package com.zzw.framelibray.banner;
+package com.zzw.baselibray.manager;
 
 import android.app.Activity;
 import android.app.Application;

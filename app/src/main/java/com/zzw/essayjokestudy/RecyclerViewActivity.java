@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zzw.essayjokestudy.service.WXService;
+import com.zzw.essayjokestudy.service.TestService;
 import com.zzw.framelibray.FrameActivity;
 import com.zzw.framelibray.banner.BannerAdapter;
 import com.zzw.framelibray.banner.BannerView;
@@ -129,7 +129,7 @@ public class RecyclerViewActivity extends FrameActivity {
 
 //        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
-        RetrofitHttpEngine.obtainRetrofitService(WXService.class)
+        RetrofitHttpEngine.obtainRetrofitService(TestService.class)
                 .getInfo("b622c4ab2cde18710dc2a0771e9171d5", 1, 20, "json")
                 .compose(RxUtils.applySchedulers(RecyclerViewActivity.this))
                 .subscribe(new ErrorHandleSubscriber<Object>(RetrofitHttpEngine.getErrorHandlerFactory()) {
@@ -138,7 +138,6 @@ public class RecyclerViewActivity extends FrameActivity {
                         Timber.e(o.toString());
                     }
                 });
-
     }
 
     private View getHeaderView() {

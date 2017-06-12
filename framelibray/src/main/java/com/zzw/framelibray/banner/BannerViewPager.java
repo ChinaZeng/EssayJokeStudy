@@ -5,13 +5,13 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.IntDef;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.zzw.baselibray.manager.SimpleActivityLifecycleCallbacks;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

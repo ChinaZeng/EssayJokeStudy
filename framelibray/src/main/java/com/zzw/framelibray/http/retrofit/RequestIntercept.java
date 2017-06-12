@@ -27,7 +27,7 @@ import timber.log.Timber;
 /**
  * Created by zzw on 2017/5/30.
  * Version:
- * Des: Retrofit的请求拦截器 用于打印相关信息和  拦截请求前和请求后触发回调
+ * Des: OkHttp的请求拦截器 用于打印相关信息和  拦截请求前和请求后触发回调
  */
 public class RequestIntercept implements Interceptor {
 

@@ -1,4 +1,4 @@
-package com.zzw.baselibray;
+package com.zzw.baselibray.manager;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
