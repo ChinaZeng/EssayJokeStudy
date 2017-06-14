@@ -16,7 +16,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@mipmap/a"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal"/>
 
     <Button
         android:id="@+id/test_skin_bt"

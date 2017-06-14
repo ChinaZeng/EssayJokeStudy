@@ -27,7 +27,6 @@ import com.zzw.framelibray.R;
 
 public class BannerView extends RelativeLayout {
 
-
     private Context mContext;
 
     //轮播ViewPager
@@ -179,8 +178,6 @@ public class BannerView extends RelativeLayout {
                 mBannerVP.setCurrentItem(mCurrentPosition + 1);
             }
         });
-
-
     }
 
 

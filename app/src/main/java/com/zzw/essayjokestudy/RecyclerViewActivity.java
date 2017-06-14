@@ -138,6 +138,7 @@ public class RecyclerViewActivity extends FrameActivity {
                         Timber.e(o.toString());
                     }
                 });
+
     }
 
     private View getHeaderView() {

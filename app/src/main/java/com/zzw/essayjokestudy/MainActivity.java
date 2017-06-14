@@ -12,6 +12,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -54,7 +55,11 @@ public class MainActivity extends FrameActivity {
     @Override
     protected void initView() {
 //        fixDexBug();
+
     }
+
+
+
 
     /**
      * 热修复测试
@@ -73,6 +78,11 @@ public class MainActivity extends FrameActivity {
         }
     }
 
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
 
     public void huanfu(View view) {
 //        Toast.makeText(this, 2 / 1, Toast.LENGTH_SHORT).show();

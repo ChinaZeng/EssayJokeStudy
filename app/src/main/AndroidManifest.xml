@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zzw.essayjokestudy">
 
+
     <uses-sdk
         android:minSdkVersion="15"
         tools:overrideLibrary="com.zzw.framelibray" />
@@ -26,6 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--N URL 适配-->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zzw.essayjokestudy.fileProvider"
@@ -59,6 +61,11 @@
 
         <activity android:name=".RecyclerViewActivity">
 
+
+
+        </activity>
+
+        <activity android:name=".DownApkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,6 +73,8 @@
             </intent-filter>
 
         </activity>
+
+        <service android:name=".update.AppUpgradeService"/>
 
     </application>
 
