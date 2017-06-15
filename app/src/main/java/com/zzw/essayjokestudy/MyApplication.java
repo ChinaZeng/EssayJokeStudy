@@ -15,7 +15,7 @@ public class MyApplication extends FrameApplication {
 
     @Override
     public void onCreate() {
-        CommonData.LOG_DEBUG = BuildConfig.LOG_DEBUG;//必须在这初始化
+        CommonData.LOG_DEBUG = BuildConfig.LOG_DEBUG;  //必须在这初始化
         super.onCreate();
     }
 

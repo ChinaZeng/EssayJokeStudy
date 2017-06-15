@@ -42,7 +42,6 @@
 
         </activity>
         <activity android:name=".TestSkinActivity" />
-        <activity android:name="com.zzw.framelibray.selectimage.SelectImageActivity" />
 
         <service
             android:name=".twoServiceLife.GuardService"
@@ -55,26 +54,29 @@
 
         <activity android:name=".BannerActivity">
 
-
         </activity>
 
 
         <activity android:name=".RecyclerViewActivity">
 
-
-
         </activity>
 
         <activity android:name=".DownApkActivity">
+
+        </activity>
+
+        <service android:name=".update.AppUpgradeService" />
+
+
+        <activity android:name=".ImageZipActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name="com.zzw.framelibray.selectimage.SelectImageActivity" />
 
-        <service android:name=".update.AppUpgradeService"/>
 
     </application>
 

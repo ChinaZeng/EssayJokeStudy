@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.zzw.baselibray.base.BaseActivity;
 import com.zzw.framelibray.BaseSkinActivity;
 import com.zzw.framelibray.DefaultNavigationBar;
+import com.zzw.framelibray.FrameActivity;
 import com.zzw.framelibray.R;
 import com.zzw.framelibray.utils.StatusBarUtil;
 
@@ -36,7 +37,7 @@ import java.util.ArrayList;
  * Des:选择图片   多选不会出现相机按钮   单选可以配置是否出现
  */
 
-public class SelectImageActivity extends BaseSkinActivity implements View.OnClickListener, SelectImageListener {
+public class SelectImageActivity extends FrameActivity implements View.OnClickListener, SelectImageListener {
 
 
     // 加载所有的数据  LoaderManager使用
@@ -44,8 +45,8 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
 
     //返回数据
     public static final int IMAGE_RESULT = 0X0022;
-    public static final String IMAGE_RESULT_INTENT_KEY = "data";
-
+    // 返回选择图片列表的EXTRA_KEY
+    public static final String EXTRA_RESULT = "EXTRA_RESULT";
 
     // 带过来的Key
     // 是否显示相机的EXTRA_KEY
@@ -56,8 +57,7 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
     public static final String EXTRA_DEFAULT_SELECTED_LIST = "EXTRA_DEFAULT_SELECTED_LIST";
     // 选择模式的EXTRA_KEY
     public static final String EXTRA_SELECT_MODE = "EXTRA_SELECT_MODE";
-    // 返回选择图片列表的EXTRA_KEY
-    public static final String EXTRA_RESULT = "EXTRA_RESULT";
+
 
     /**
      * 可以传递过来的参数
@@ -98,6 +98,7 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
         DefaultNavigationBar navigationBar = new DefaultNavigationBar.Builder(this)
                 .setTitle("所有图片")
                 .builder();
+//        navigationBar.findViewById();
 
         // 改变状态栏的颜色
         StatusBarUtil.statusBarTintColor(this, Color.parseColor("#261f1f"));
@@ -148,27 +149,22 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
 
     private void setLoadState(boolean loadOk) {
         if (loadOk) {//防止闪屏  加了500ms延时
-
-            ObjectAnimator alphaOA = ObjectAnimator.ofFloat(mLoadingProgress, "alpha", 1.0f, 0f);
-            alphaOA.setDuration(500);
-            alphaOA.addListener(new AnimatorListenerAdapter() {
+            ObjectAnimator alphaOP = ObjectAnimator.ofFloat(mLoadingProgress, "alpha", 1.0f, 0f);
+            alphaOP.setDuration(500);
+            ObjectAnimator alphaAR = ObjectAnimator.ofFloat(mContentRl, "alpha", 0.0f, 1.0f);
+            alphaAR.setDuration(500);
+            alphaAR.addListener(new AnimatorListenerAdapter() {
                 @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(mContentRl, "alpha", 0.0f, 1.0f);
-                    alphaAnim.setDuration(200);
-                    alphaAnim.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationStart(animation);
-                            mContentRl.setVisibility(View.VISIBLE);
-                        }
-                    });
-                    alphaAnim.start();
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+                    mContentRl.setVisibility(View.VISIBLE);
                 }
             });
-            alphaOA.start();
 
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.play(alphaOP).before(alphaAR);
+
+            animatorSet.start();
 
         } else {
             mLoadingProgress.setVisibility(View.VISIBLE);
@@ -236,7 +232,7 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
                     IMAGE_PROJECTION[4] + ">0 AND " + IMAGE_PROJECTION[3] + "=? OR "
                             + IMAGE_PROJECTION[3] + "=? ",
-                    new String[]{"image/jpeg", "image/png"}, IMAGE_PROJECTION[2] + " DESC");
+                    new String[]{"image/jpeg", "image/png"}, IMAGE_PROJECTION[2] + " DESC");//DESC
             return cursorLoader;
         }
 
@@ -294,12 +290,17 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
 //        mResultList 当前图片集合
         int i = v.getId();
         if (i == R.id.select_finish) {//确定
-            Intent intent = new Intent();
-            intent.putExtra(IMAGE_RESULT_INTENT_KEY, mResultList);
-            setResult(IMAGE_RESULT, intent);
+            selectFinish();
         } else if (i == R.id.select_preview) {//预览
 
         }
+    }
+
+    private void selectFinish() {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_RESULT, mResultList);
+        setResult(IMAGE_RESULT, intent);
+        finish();
     }
 
 
@@ -317,7 +318,16 @@ public class SelectImageActivity extends BaseSkinActivity implements View.OnClic
 
             }
         }
+    }
 
+    //拍照返回  或者预览返回
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //相机：
+        //1.图片加载到集合
+        //2.返回数据
+        //3.通知系统本地图库有改变，下次进来还可以找到这张图片
 
     }
 }

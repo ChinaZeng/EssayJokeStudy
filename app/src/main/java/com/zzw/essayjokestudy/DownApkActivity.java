@@ -36,5 +36,6 @@ public class DownApkActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+
     }
 }

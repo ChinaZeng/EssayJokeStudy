@@ -79,11 +79,6 @@ public class MainActivity extends FrameActivity {
     }
 
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
     public void huanfu(View view) {
 //        Toast.makeText(this, 2 / 1, Toast.LENGTH_SHORT).show();
 
@@ -178,34 +173,6 @@ public class MainActivity extends FrameActivity {
                 .requestCode(1)
                 .requestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .request();
-
-//        List<PermissonItem> permissonItems = new ArrayList<PermissonItem>();
-//        permissonItems.add(new PermissonItem(Manifest.permission.READ_EXTERNAL_STORAGE, "读取内存卡", R.drawable.permission_ic_memory));
-//        permissonItems.add(new PermissonItem(Manifest.permission.WRITE_EXTERNAL_STORAGE, "写入内存卡", R.drawable.permission_ic_location));
-//        HiPermission.create(MainActivity.this)
-//                .permissions(permissonItems)
-//                .checkMutiPermission(new PermissionCallback() {
-//                    @Override
-//                    public void onClose() {
-//                        showToast("用户关闭权限申请");
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        showToast("所有权限申请完成");
-//                    }
-//
-//                    @Override
-//                    public void onDeny(String permisson, int position) {
-//                        showToast(permisson + "");
-//                    }
-//
-//                    @Override
-//                    public void onGuarantee(String permisson, int position) {
-//                        showToast(permisson + "");
-//                    }
-//                });
-
 
     }
 

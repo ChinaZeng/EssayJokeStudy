@@ -23,6 +23,7 @@ public class BannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
 
+
         mBannerView = (BannerView) findViewById(R.id.bv);
         mBannerView.setAdapter(new BannerAdapter() {
             @Override

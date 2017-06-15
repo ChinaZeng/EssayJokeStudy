@@ -18,6 +18,14 @@ public class BaseApplication extends Application implements Application.Activity
     @Override
     public void onCreate() {
         super.onCreate();
+//        HookStartActivityUtil hookStartActivityUtil = new HookStartActivityUtil(this, ProxyActivity.class);
+//        try {
+//            hookStartActivityUtil.hookStartActivity();
+//            hookStartActivityUtil.hookHandleLaunchActivity();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         registerActivityLifecycleCallbacks(this);
     }
 
