@@ -104,22 +104,7 @@ public class MainActivity extends FrameActivity {
                 case R.id.bind:
                     ImageSelector.create().single().showCamera(true).start(this, 5);
 
-//                    final AlertDialog dialog = new AlertDialog.Builder(this)
-//                            .setContentView(R.layout.dialog_)
-//                            .setText(R.id.tv, "测试")
-//                            .formBottom(true)
-//                            .fullWidth()
-//                            .create();
-//
-//                    dialog.setOnclickListener(R.id.tv, new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            TextView textView = dialog.getView(R.id.tv);
-//                            Toast.makeText(v.getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//                    dialog.show();
+
 
 //                    DaoSupportFactory.getFactory().getDao(Person.class).insert(new Person("zzw", 23, "zzw@qq.com"));
                     break;

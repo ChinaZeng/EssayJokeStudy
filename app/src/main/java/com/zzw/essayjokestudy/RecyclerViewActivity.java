@@ -88,6 +88,7 @@ public class RecyclerViewActivity extends FrameActivity {
             }
         });
         mRecyclerView.setLoadViewCreator(loadViewCreator);
+
         mRecyclerView.setRefreshViewCreator(new DefaultRefreshCreator());
 
         mRecyclerView.setOnLoadMoreListener(new LoadRefreshRecyclerView.OnLoadMoreListener() {

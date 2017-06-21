@@ -11,12 +11,31 @@ import android.widget.ListView;
 
 import com.zzw.baselibray.R;
 
+
+
+
+//                    final AlertDialog dialog = new AlertDialog.Builder(this)
+//                            .setContentView(R.layout.dialog_)
+//                            .setText(R.id.tv, "测试")
+//                            .formBottom(true)
+//                            .fullWidth()
+//                            .create();
+//
+//                    dialog.setOnclickListener(R.id.tv, new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            TextView textView = dialog.getView(R.id.tv);
+//                            Toast.makeText(v.getContext(), textView.getText(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                    dialog.show();
+
+
 /**
  * Created by zzw on 2017/5/16.
  * Version:
  * Des:
  */
-
 public class AlertDialog extends Dialog {
 
     private AlertController mAlert;

@@ -6,6 +6,16 @@ import android.os.Environment;
 
 import java.io.File;
 
+
+//                     String path = pathList.get(position);
+//                    Bitmap bitmap = ImageUtil.decodeFile(path, 800);
+//                    int a = ImageUtil.compressBitmap(bitmap, 75,
+//                            Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+//                                    + new File(path).getName()
+//                    );
+//                    Log.e("zzz", a + "");
+
+
 /**
  * Created by zzw on 2017/6/15.
  * Version:

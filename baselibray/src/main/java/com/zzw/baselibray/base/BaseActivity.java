@@ -30,6 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         initTitle();
         initView();
         initData();
+
+
     }
 
     //初始化界面

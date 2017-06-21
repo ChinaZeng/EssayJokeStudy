@@ -1,21 +1,28 @@
 package com.zzw.essayjokestudy;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zzw.baselibray.permission.PermissionHelper;
 import com.zzw.baselibray.permission.RequestPermissionFail;
 import com.zzw.baselibray.permission.RequestPermissionSucceed;
+import com.zzw.baselibray.popwindow.PublicPopupWindow;
 import com.zzw.essayjokestudy.utils.ImageUtil;
 import com.zzw.framelibray.FrameActivity;
 import com.zzw.framelibray.recyclerview.adapter.CommonRecyclerAdapter;
@@ -40,6 +47,8 @@ public class ImageZipActivity extends FrameActivity {
     private RecyclerView recy1;
     private RecyclerView recy2;
 
+    private LinearLayout root;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_zip_image;
@@ -52,7 +61,8 @@ public class ImageZipActivity extends FrameActivity {
 
     @Override
     protected void initView() {
-        findViewById(R.id.select_image).setOnClickListener(new View.OnClickListener() {
+        final View bt = findViewById(R.id.select_image);
+        bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImageSelector.create().multi().showCamera(true).count(8).start(ImageZipActivity.this, 5);
@@ -65,10 +75,13 @@ public class ImageZipActivity extends FrameActivity {
         recy1.setLayoutManager(new GridLayoutManager(this, 3));
         recy2.setLayoutManager(new GridLayoutManager(this, 3));
 
+        root = (LinearLayout) findViewById(R.id.root);
+
     }
 
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 5 && resultCode != RESULT_CANCELED) {
             final List<String> pathList = data.getStringArrayListExtra(SelectImageActivity.EXTRA_RESULT);
@@ -83,6 +96,7 @@ public class ImageZipActivity extends FrameActivity {
                                     + new File(path).getName()
                     );
                     Log.e("zzz", a + "");
+
                 }
             });
             recy1.setAdapter(adapter);
